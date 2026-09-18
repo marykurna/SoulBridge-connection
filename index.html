@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HeartSync · Find Your Perfect Match</title>
+  <!-- Stylesheets would go here -->
+  <style>
+    /* Basic reset and layout */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      line-height: 1.6;
+      color: #1a1a2e;
+      background-color: #fffafc;
+    }
+
+    .shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 70px 0;
+      border-bottom: 1px solid #f0e6ea;
+    }
+
+    h1, h2, h3, h4 {
+      margin-bottom: 16px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      color: #1e1e2f;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: #4a4a5a;
+    }
+
+    /* placeholder image / video */
+    .placeholder-img {
+      background: linear-gradient(145deg, #f3e9f0, #e4d7e0);
+      width: 100%;
+      height: 200px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7a5a7a;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    /* Grid utilities */
+    .grid {
+      display: grid;
+      gap: 28px;
+    }
+
+    .grid-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* specific section styles */
+    .hero {
+      background: linear-gradient(135deg, #fff5f9 0%, #fdeef4 100%);
+      text-align: center;
+      border-bottom: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      background: linear-gradient(145deg, #b83a6b, #8a2e56);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.03em;
+    }
+
+    .stats {
+      background: #ffffff;
+    }
+
+    .cards-2up {
+      background: #fefafc;
+    }
+
+    .quote-section {
+      font-style: italic;
+      text-align: center;
+      font-size: 1.4rem;
+      background: #fff5f9;
+    }
+
+    .support-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #c44569;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 400;
+      cursor: pointer;
+      box-shadow: 0 12px 24px -8px rgba(196, 69, 105, 0.4);
+      transition: all 0.25s ease;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      z-index: 999;
+    }
+
+    .support-float:hover {
+      background: #a13253;
+      transform: scale(1.08);
+      box-shadow: 0 18px 28px -8px rgba(196, 69, 105, 0.6);
+    }
+
+    .cookie-consent {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #1e1e2f;
+      color: #f0eef2;
+      padding: 16px 0;
+      text-align: center;
+      display: none;
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+      border-top: 1px solid #3a2e3a;
+    }
+
+    .cookie-consent.show {
+      display: block;
+    }
+
+    .cookie-consent .shell {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    button {
+      background: #c44569;
+      color: white;
+      border: none;
+      border-radius: 60px;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(196, 69, 105, 0.2);
+      letter-spacing: 0.3px;
+    }
+
+    button:hover {
+      background: #a13253;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(196, 69, 105, 0.3);
+    }
+
+    /* header */
+    .cb-shell-header {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #f0e2e9;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo strong {
+      font-size: 1.7rem;
+      font-weight: 700;
+      background: linear-gradient(145deg, #b83a6b, #8a2e56);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    nav a {
+      color: #2e2e3e;
+      font-weight: 500;
+      transition: color 0.15s;
+      text-decoration: none;
+      margin-left: 28px;
+    }
+
+    nav a:hover {
+      color: #c44569;
+    }
+
+    /* testimonial cards */
+    .stacked-cards-section .grid > div {
+      background: white;
+      padding: 28px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.08);
+      border: 1px solid #f5e6ee;
+      transition: transform 0.15s;
+    }
+
+    .stacked-cards-section .grid > div:first-child {
+      z-index: 2;
+      position: relative;
+    }
+
+    .stacked-cards-section .grid > div:last-child {
+      margin-top: -12px;
+      z-index: 1;
+      opacity: 0.9;
+    }
+
+    /* footer */
+    .cb-shell-footer {
+      background: #fcf7fa;
+      border-top: 1px solid #f0e2e9;
+      color: #4a3a44;
+    }
+
+    .cb-shell-footer h4 {
+      color: #1e1e2f;
+      margin-bottom: 12px;
+    }
+
+    .cb-shell-footer a {
+      color: #7a5a6a;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .cb-shell-footer a:hover {
+      color: #c44569;
+    }
+
+    /* CTA image box */
+    .cta-image-box .shell > div {
+      background: linear-gradient(135deg, #2d1e2a, #1e1220);
+      border-radius: 32px;
+      box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* video placeholder */
+    .video-section .placeholder-img {
+      height: 400px;
+      background: #ede3e9;
+      color: #8f6f7f;
+      font-size: 1.2rem;
+    }
+
+    /* app buttons */
+    .app-section button {
+      background: #1e1e2f;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .app-section button:hover {
+      background: #2d2d44;
+    }
+
+    /* responsive */
+    @media (max-width: 800px) {
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+
+      section {
+        padding: 50px 0;
+      }
+
+      .cookie-consent .shell {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .support-float {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        bottom: 20px;
+        right: 20px;
+      }
+
+      .cb-shell-footer .shell {
+        grid-template-columns: 1fr !important;
+        text-align: center;
+      }
+
+      .cb-shell-footer ul {
+        padding-left: 0;
+      }
+    }
+
+    /* featured members */
+    .match-preview-section .placeholder-img {
+      background: linear-gradient(145deg, #f7ecf2, #ead8e2);
+      color: #9b6f86;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .trust-signals-section h3 {
+      color: #c44569;
+    }
+
+    .stats h2 {
+      color: #c44569;
+      font-size: 2.8rem;
+      font-weight: 700;
+    }
+
+    /* stay connected */
+    .app-section {
+      background: #fffafc;
+    }
+
+    .app-section h2 {
+      color: #1e1e2f;
+    }
+
+    blockquote {
+      font-size: 1.8rem;
+      line-height: 1.4;
+      color: #3a2a34;
+      max-width: 800px;
+      margin: 0 auto;
+      font-weight: 400;
+    }
+
+    blockquote footer {
+      font-size: 1.1rem;
+      color: #b87a93;
+      margin-top: 16px;
+    }
+
+    /* how it works */
+    .how-it-works-section h3 {
+      font-size: 1.4rem;
+      color: #c44569;
+    }
+
+    .cards-2up h3 {
+      color: #c44569;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="cb-shell-header" role="banner">
+    <div class="shell" style="display: flex; justify-content: space-between; align-items: center; padding: 18px 20px;">
+      <div class="logo"><strong>HeartSync</strong></div>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__backdrop"></div>
+    <div class="floating-hearts"></div>
+    <div class="shell hero__grid">
+      <div style="padding: 110px 0 90px;">
+        <h1>Find Your Perfect Match</h1>
+        <p style="font-size: 1.3rem; max-width: 650px; margin: 0 auto 36px auto; color: #4e3a46;">
+          Discover meaningful connections and find your perfect match with our advanced algorithms.
+        </p>
+        <button>Get Started</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works-section">
+    <div class="shell">
+      <h2 style="text-align: center;">How It Works</h2>
+      <div class="grid grid-3" style="margin-top: 40px;">
+        <div>
+          <h3>1. Create Profile</h3>
+          <p>Sign up and tell us about yourself and what you're looking for.</p>
+        </div>
+        <div>
+          <h3>2. Get Matched</h3>
+          <p>Our intelligent system finds compatible partners based on your preferences.</p>
+        </div>
+        <div>
+          <h3>3. Connect</h3>
+          <p>Start conversations and build meaningful relationships.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED MEMBERS -->
+  <section class="match-preview-section">
+    <div class="shell">
+      <h2 style="text-align: center;">Featured Members</h2>
+      <div class="grid grid-4" style="margin-top: 30px;">
+        <div class="placeholder-img">Member 1</div>
+        <div class="placeholder-img">Member 2</div>
+        <div class="placeholder-img">Member 3</div>
+        <div class="placeholder-img">Member 4</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST SIGNALS -->
+  <section class="trust-signals-section">
+    <div class="shell">
+      <h2 style="text-align: center;">Why Trust Us</h2>
+      <div class="grid grid-3" style="text-align: center; margin-top: 30px;">
+        <div>
+          <h3>Verified Profiles</h3>
+          <p>Every user goes through a strict verification process.</p>
+        </div>
+        <div>
+          <h3>Secure Platform</h3>
+          <p>Your data is encrypted and protected with top-tier security.</p>
+        </div>
+        <div>
+          <h3>24/7 Support</h3>
+          <p>Our team is always here to help you with any issues.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="video-section">
+    <div class="shell">
+      <h2 style="text-align: center;">See How It Works</h2>
+      <div class="placeholder-img" style="height: 400px; margin-top: 20px;">Video Player Placeholder</div>
+    </div>
+  </section>
+
+  <!-- STACKED CARDS -->
+  <section class="stacked-cards-section">
+    <div class="shell">
+      <h2 style="text-align: center;">Success Stories</h2>
+      <div class="grid" style="max-width: 620px; margin: 30px auto 0;">
+        <div style="background: #fff; padding: 28px; border-radius: 20px; box-shadow: 0 10px 25px -8px rgba(0,0,0,0.08); position: relative; z-index: 2;">
+          <p style="font-size: 1.1rem;">"I met my partner here 2 years ago, and we couldn't be happier!"</p>
+          <strong style="color: #c44569;">— Sarah & Mike</strong>
+        </div>
+        <div style="background: #fff; padding: 28px; border-radius: 20px; box-shadow: 0 10px 25px -8px rgba(0,0,0,0.08); margin-top: -12px; z-index: 1; opacity: 0.92;">
+          <p style="font-size: 1.1rem;">"The matching algorithm is incredibly accurate. Highly recommend."</p>
+          <strong style="color: #c44569;">— Emily R.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA IMAGE BOX -->
+  <section class="cta-image-box">
+    <div class="shell">
+      <div style="background: linear-gradient(135deg, #2d1e2a, #1e1220); color: white; padding: 70px 40px; border-radius: 32px; text-align: center;">
+        <h2 style="color: white;">Ready to Find Love?</h2>
+        <p style="color: #d9c6d0; font-size: 1.2rem;">Join thousands of happy couples today.</p>
+        <button style="background: #c44569; margin-top: 12px;">Sign Up Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="shell grid grid-3" style="text-align: center;">
+      <div>
+        <h2 style="font-size: 2.8rem; color: #c44569;">10k+</h2>
+        <p>Happy Couples</p>
+      </div>
+      <div>
+        <h2 style="font-size: 2.8rem; color: #c44569;">50k+</h2>
+        <p>Active Members</p>
+      </div>
+      <div>
+        <h2 style="font-size: 2.8rem; color: #c44569;">98%</h2>
+        <p>Satisfaction Rate</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2-UP CARDS -->
+  <section class="cards-2up">
+    <div class="shell grid grid-2">
+      <div style="padding: 40px; background: #fff; border-radius: 24px; box-shadow: 0 12px 28px -10px rgba(0,0,0,0.06);">
+        <h3>For Singles</h3>
+        <p>Find someone who truly understands you. Create your profile today.</p>
+      </div>
+      <div style="padding: 40px; background: #fff; border-radius: 24px; box-shadow: 0 12px 28px -10px rgba(0,0,0,0.06);">
+        <h3>For Couples</h3>
+        <p>Already found your match? Share your story and inspire others.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote-section">
+    <div class="shell">
+      <blockquote>
+        "The best thing to hold onto in life is each other."
+        <footer style="margin-top: 20px; font-style: normal; font-weight: 600; color: #b87a93;">— Audrey Hepburn</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- STAY CONNECTED -->
+  <section class="app-section">
+    <div class="shell" style="text-align: center;">
+      <h2>Stay Connected</h2>
+      <p style="font-size: 1.15rem;">Download our app to keep the conversation going.</p>
+      <div style="display: flex; gap: 16px; justify-content: center; margin-top: 28px; flex-wrap: wrap;">
+        <button style="background: #1e1e2f;">App Store</button>
+        <button style="background: #1e1e2f;">Google Play</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="cb-shell-footer" role="contentinfo">
+    <div class="shell" style="padding: 50px 20px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 30px;">
+      <div>
+        <h4>HeartSync</h4>
+        <p style="font-size: 0.95rem; color: #7a5a6a;">Connecting hearts worldwide.</p>
+      </div>
+      <div>
+        <h4>Links</h4>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 8px;"><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p style="font-size: 0.95rem; color: #7a5a6a;">support@heartsync.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING SUPPORT BUTTON -->
+  <div class="support-float" title="Support">
+    ?
+  </div>
+
+  <!-- COOKIE CONSENT -->
+  <div id="cookie-consent" class="cookie-consent show">
+    <div class="shell">
+      <p style="margin: 0; color: #f0eef2;">We use cookies to improve your experience.</p>
+      <button id="accept-cookies" style="background: #c44569;">Accept</button>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- SCRIPTS - SUPABASE + INTERACTIONS                         -->
+  <!-- ========================================================= -->
+  <script type="importmap">
+    {
+      "imports": {
+        "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"
+      }
+    }
+  </script>
+  <script type="module">
+    // Import Supabase if needed
+    // import { createClient } from '@supabase/supabase-js'
+
+    // Basic interaction logic for cookie consent
+    const cookieConsent = document.getElementById('cookie-consent');
+    const acceptCookies = document.getElementById('accept-cookies');
+
+    if (localStorage.getItem('cookiesAccepted')) {
+      cookieConsent.classList.remove('show');
+    }
+
+    acceptCookies.addEventListener('click', () => {
+      localStorage.setItem('cookiesAccepted', 'true');
+      cookieConsent.classList.remove('show');
+    });
+
+    console.log('HeartSync interactions initialized.');
+  </script>
+</body>
+</html>
