@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SoulBridge Connection · Find Your Perfect Match</title>
-  <!-- Stylesheets would go here -->
+  <meta name="description" content="SoulBridge Connection helps you discover meaningful relationships and find your perfect match.">
+  <meta name="theme-color" content="#c44569">
   <style>
     /* Basic reset and layout */
     * {
@@ -324,6 +325,15 @@
       .cb-shell-footer ul {
         padding-left: 0;
       }
+
+      .logo strong {
+        font-size: 1.3rem;
+      }
+
+      nav a {
+        margin-left: 16px;
+        font-size: 0.9rem;
+      }
     }
 
     /* featured members */
@@ -385,15 +395,15 @@
     <div class="shell" style="display: flex; justify-content: space-between; align-items: center; padding: 18px 20px;">
       <div class="logo"><strong>SoulBridge Connection</strong></div>
       <nav>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" id="home">
     <div class="hero__backdrop"></div>
     <div class="floating-hearts"></div>
     <div class="shell hero__grid">
@@ -408,7 +418,7 @@
   </section>
 
   <!-- HOW IT WORKS -->
-  <section class="how-it-works-section">
+  <section class="how-it-works-section" id="about">
     <div class="shell">
       <h2 style="text-align: center;">How It Works</h2>
       <div class="grid grid-3" style="margin-top: 40px;">
@@ -553,7 +563,7 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="cb-shell-footer" role="contentinfo">
+  <footer class="cb-shell-footer" role="contentinfo" id="contact">
     <div class="shell" style="padding: 50px 20px; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 30px;">
       <div>
         <h4>SoulBridge Connection</h4>
@@ -568,7 +578,7 @@
       </div>
       <div>
         <h4>Contact</h4>
-        <p style="font-size: 0.95rem; color: #7a5a6a;">support@soulbridge.com</p>
+        <p style="font-size: 0.95rem; color: #7a5a6a;">support@soulbridgeconnection.com</p>
       </div>
     </div>
   </footer>
@@ -613,7 +623,7 @@
       cookieConsent.classList.remove('show');
     });
 
-    console.log('SoulBridge interactions initialized.');
+    console.log('SoulBridge Connection initialized.');
   </script>
 </body>
 </html>
